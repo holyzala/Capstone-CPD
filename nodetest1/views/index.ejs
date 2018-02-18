@@ -1,0 +1,12 @@
+<% include layout.ejs %>
+<body>
+<h1><%= title %></h1>
+<p>Hello, World! We Are <%= title %>
+    <h2><%= title %></h2>
+    <ul>
+        <% userlist.forEach(user => { %>
+        <li><a href="mailto:" + <%= user.email %>><%= user.username %></a></li>
+        <% }) %>
+    </ul>
+</p>
+</body>
