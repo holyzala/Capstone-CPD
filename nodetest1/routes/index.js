@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     var collection = db.get('usercollection');
     collection.find({}, {}, function (e, docs) {
         res.render('index', {
-            userlist: docs, title: 'Professional Development AF'
+            userlist: docs, title: 'Professional Development'
         });
     });
 });

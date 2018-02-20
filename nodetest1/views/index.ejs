@@ -5,7 +5,11 @@
     <h2><%= title %></h2>
     <ul>
         <% userlist.forEach(user => { %>
-        <li><a href="mailto:" + <%= user.email %>><%= user.username %></a></li>
+        <li>
+            <a href="mailto:" + <%= user.email %>>
+                <%= user.username %>
+            </a>
+        </li>
         <% }) %>
     </ul>
 </p>
