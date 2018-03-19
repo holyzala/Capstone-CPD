@@ -21,7 +21,7 @@ router.post('/addsoda/', function (req, res, next) {
     var collection = db.get('sodacollection');
     var ret = collection.insert({name: req.body.sodaname, description: req.body.sodadesc});
     ret.catch(function(error) {
-        console.log(error);
+        console.log(error.toString());
     });
     if (req.body.done) {
         res.redirect('/');

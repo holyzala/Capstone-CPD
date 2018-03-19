@@ -10,6 +10,13 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/nodetest1');
 
+// Set a unique index on soda name
+var collection = db.get('sodacollection');
+var ret = collection.createIndex({name: 1}, {unique: true, name:"Unique Name"});
+ret.catch(function(error) {
+    console.log(error.toString());
+});
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
