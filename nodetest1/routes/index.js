@@ -3,18 +3,31 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    // res.render('index', { title: 'Professional Development AF' })
     var db = req.db;
-    var collection = db.get('usercollection');
+    var collection = db.get('sodacollection');
     collection.find({}, {}, function (e, docs) {
         res.render('index', {
-            userlist: docs, title: 'Professional Development'
+            sodalist: docs
         });
     });
 });
 
-/ GET Hello World page. /
-router.get('/helloworld', function (req, res) {
-    res.render('helloworld', {title: 'Hello, World!'});
+router.get('/addsoda/', function (req, res, next) {
+    res.render('addsoda');
 });
+
+router.post('/addsoda/', function (req, res, next) {
+    var db = req.db;
+    var collection = db.get('sodacollection');
+    var ret = collection.insert({name: req.body.sodaname, description: req.body.sodadesc});
+    ret.catch(function(error) {
+        console.log(error);
+    });
+    if (req.body.done) {
+        res.redirect('/');
+    } else {
+        res.redirect('/addsoda');
+    }
+});
+
 module.exports = router;
