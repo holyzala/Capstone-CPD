@@ -2,6 +2,7 @@
 <body>
 <h1><%= title %></h1>
 <a href="/addsoda">Add a soda</a>
+<a href="/addrating">Add a rating</a>
 <table>
     <thead>
     <tr>
@@ -15,7 +16,7 @@
     <tr>
         <td><%= soda.name %></td>
         <td><%= soda.description %></td>
-        <td>1</td>
+        <td><% var i = soda.ratings.reduce((acc, next) => acc + parseInt(next.rating), 0) / soda.ratings.length%><%= i %></td>
     </tr>
     <% }) %>
     </tbody>
