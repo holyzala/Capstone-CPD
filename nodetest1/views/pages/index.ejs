@@ -13,10 +13,9 @@
     <div class="row">
         <div class="col-sm-8">
             <div class="jumbotron">
-                <body>
                 <h1><%= title %></h1>
-                <button type="button" onclick="addSoda()" class="btn btn-primary btn-md">Add a soda</button>
-                <button type="button" onclick="addRating()" class="btn btn-primary btn-md">Add a rating</button>
+                <a role="button" class="btn btn-primary btn-md" href="/addsoda">Add a soda</a>
+                <a role="button" class="btn btn-primary btn-md" href="/addrating">Add a rating</a>
                 <table class="table">
                     <thead>
                     <tr>
@@ -30,25 +29,13 @@
                     <tr>
                         <td><%= soda.name %></td>
                         <td><%= soda.description %></td>
-                        <td><% var i = soda.ratings.reduce((acc, next) => acc + parseInt(next.rating), 0) / soda.ratings.length%><%= i %></td>
+                        <td>
+                            <% var i = soda.ratings.reduce((acc, next) => acc + parseInt(next.rating), 0) / soda.ratings.length %>
+                            <%= i %></td>
                     </tr>
                     <% }) %>
                     </tbody>
                 </table>
-
-                <script>
-                    function addSoda() {
-                        window.location.href = '/addsoda';
-                    }
-                </script>
-
-                <script>
-                    function addRating() {
-                        window.location.href = '/addrating';
-                    }
-                </script>
-
-                </body>
             </div>
         </div>
 

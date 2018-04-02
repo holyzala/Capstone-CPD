@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/addsoda/', function (req, res, next) {
-    res.render('addsoda');
+    res.render('pages/addsoda');
 });
 
 router.post('/addsoda/', function (req, res, next) {
@@ -29,7 +29,7 @@ router.post('/addsoda/', function (req, res, next) {
 
 router.get('/addrating/', function (req, res, next) {
     req.collection.find({}, {}, function (e, docs) {
-        res.render('addrating', {
+        res.render('pages/addrating', {
             sodalist: docs
         });
     });
