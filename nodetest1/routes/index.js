@@ -16,14 +16,15 @@ router.get('/addsoda/', function (req, res, next) {
 
 router.post('/addsoda/', function (req, res, next) {
     var ret = req.collection.insert({name: req.body.sodaname, description: req.body.sodadesc, ratings: []});
-    ret.catch(function (error) {
+    ret.then(function(e) {
+        if (req.body.done) {
+            res.redirect('/');
+        } else {
+            res.redirect('/addsoda');
+        }
+    }).catch(function (error) {
         console.log(error.toString());
     });
-    if (req.body.done) {
-        res.redirect('/');
-    } else {
-        res.redirect('/addsoda');
-    }
 });
 
 router.get('/addrating/', function (req, res, next) {
@@ -43,15 +44,16 @@ router.post('/addrating/', function (req, res, next) {
             doc.ratings = [{user: req.body.username, rating: req.body.rating}];
         }
         var ret = req.collection.update({name: doc.name}, doc);
-        ret.catch(function(error) {
+        ret.then(function (e) {
+            if (req.body.done) {
+                res.redirect('/');
+            } else {
+                res.redirect('/addrating');
+            }
+        }).catch(function(error) {
             console.log(error.toString());
         });
     });
-    if (req.body.done) {
-        res.redirect('/');
-    } else {
-        res.redirect('/addrating');
-    }
 });
 
 module.exports = router;
