@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="jumbotron">
+                <body>
+                <h1><%= title %></h1>
+                <button type="button" onclick="addSoda()" class="btn btn-primary btn-md">Add a soda</button>
+                <button type="button" onclick="addRating()" class="btn btn-primary btn-md">Add a rating</button>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% sodalist.forEach(soda => { %>
+                    <tr>
+                        <td><%= soda.name %></td>
+                        <td><%= soda.description %></td>
+                        <td><% var i = soda.ratings.reduce((acc, next) => acc + parseInt(next.rating), 0) / soda.ratings.length%><%= i %></td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+
+                <script>
+                    function addSoda() {
+                        window.location.href = '/addsoda';
+                    }
+                </script>
+
+                <script>
+                    function addRating() {
+                        window.location.href = '/addrating';
+                    }
+                </script>
+
+                </body>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="well">
+                <h3>Leader Board</h3>
+                <h4>Our Highest Rated Soda is: //TODO</h4>
+                <h5>Top Reviewer is: //TODO</h5>
+            </div>
+
+            <script>
+                function getHighestRating() {
+                    return "ToDo";
+                }
+            </script>
+
+            <script>
+                function getMostVoted() {
+                    return "ToDo";
+                }
+            </script>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>
