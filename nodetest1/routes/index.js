@@ -16,7 +16,7 @@ router.get('/addsoda/', function (req, res, next) {
 
 router.post('/addsoda/', function (req, res, next) {
     var ret = req.collection.insert({name: req.body.sodaname, description: req.body.sodadesc, ratings: []});
-    ret.then(function(e) {
+    ret.then(function(result) {
         if (req.body.done) {
             res.redirect('/');
         } else {
@@ -44,7 +44,7 @@ router.post('/addrating/', function (req, res, next) {
             doc.ratings = [{user: req.body.username, rating: req.body.rating}];
         }
         var ret = req.collection.update({name: doc.name}, doc);
-        ret.then(function (e) {
+        ret.then(function (result) {
             if (req.body.done) {
                 res.redirect('/');
             } else {
