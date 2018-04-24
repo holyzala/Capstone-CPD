@@ -1,65 +1,67 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+require('./config/config');     //instantiate configuration variables
+require('./global_functions');  //instantiate global functions
 
-// Set Up Mongo
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/nodetest1');
+console.log("Environment:", CONFIG.app)
 
-// Set a unique index on soda name
-var collection = db.get('sodacollection');
-var ret = collection.createIndex({name: 1}, {unique: true, name:"Unique Name"});
-ret.catch(function(error) {
-    console.log(error.toString());
-});
+const express 		= require('express');
+const logger 	    = require('morgan');
+const bodyParser 	= require('body-parser');
+const passport      = require('passport');
 
-var index = require('./routes/index');
-var api = require('./routes/api');
+const v1 = require('./routes/v1');
 
-var app = express();
+const app = express();
 
-// uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
+//Passport
+app.use(passport.initialize());
+
+//DATABASE
+const models = require("./models");
+
+// CORS
 app.use(function (req, res, next) {
-    req.collection = db.get('sodacollection');
-    res.locals.title = "Soda Ratings";
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization, Content-Type');
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    // Pass to next layer of middleware
     next();
 });
 
-app.use('/api', api);
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use('/', index);
+app.use('/api/v1', v1);
 
+app.use('/', function(req, res){
+	res.statusCode = 200;//send the appropriate status code
+	res.json({status:"success", message:"Parcel Pending API", data:{}})
+});
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
