@@ -1,20 +1,15 @@
-const Company 			    = require('./../models/company');
+const Soda = require('../models/soda');
 
-let company = async function (req, res, next) {
-    let company_id, err, company;
-    company_id = req.params.company_id;
+let soda = async function (req, res, next) {
+    let soda_id, err, soda;
+    soda_id = req.params.soda_id;
 
-    [err, company] = await to(Company.findOne({_id:company_id}));
-    if(err) return ReE(res,"err finding company");
+    [err, soda] = await to(Soda.findOne({_id: soda_id}));
+    if (err) return ReE(res, "err finding soda");
 
-    if(!company) return ReE(res, "Company not found with id: "+company_id);
-    let user, users_array;
-    user = req.user;
-    users_array = company.users.map(obj=>String(obj.user));
+    if (!soda) return ReE(res, "Soda not found with id: " + soda_id);
 
-    if(!users_array.includes(String(user._id))) return ReE(res, "User does not have permission to read app with id: "+app_id);
-
-    req.company = company;
+    req.soda = soda;
     next();
-}
-module.exports.company = company;
+};
+module.exports.soda = soda;
