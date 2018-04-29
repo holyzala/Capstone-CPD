@@ -41,13 +41,16 @@ const update = async function (req, res) {
     let err, soda, data;
     soda = req.soda;
     data = req.body;
+    if (data.reviews) {
+        data.reviews = JSON.parse(data.reviews);
+    }
     soda.set(data);
 
     [err, soda] = await to(soda.save());
     if (err) {
         return ReE(res, err);
     }
-    return ReS(res, {company: soda.toWeb()});
+    return ReS(res, {soda: soda.toWeb()});
 };
 module.exports.update = update;
 
