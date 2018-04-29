@@ -41,8 +41,13 @@ const update = async function (req, res) {
     let err, soda, data;
     soda = req.soda;
     data = req.body;
+    if (data.reviews && data.rating)
+        return ReE(res, "reviews or ratings, not both", 400);
     if (data.reviews) {
         data.reviews = JSON.parse(data.reviews);
+    } else if (data.rating) {
+        data.reviews = soda.reviews.filter(review => review.user.toString() !== req.user._id.toString())
+            .concat({user: req.user._id, rating: data.rating});
     }
     soda.set(data);
 
