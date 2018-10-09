@@ -7,21 +7,21 @@
         "dev": "node-dev ./bin/www"
     },
     "dependencies": {
-        "bcrypt": "^2.0.1",
-        "bcrypt-promise": "^2.0.0",
-        "body-parser": "~1.18.2",
-        "cookie-parser": "~1.4.3",
-        "debug": "~2.6.9",
-        "dotenv": "^5.0.1",
-        "express": "~4.15.5",
-        "jade": "~1.11.0",
-        "mongoose": "^5.0.16",
-        "mongoose-validator": "^2.0.2",
-        "morgan": "~1.9.0",
-        "parse-error": "^0.2.0",
-        "passport": "^0.4.0",
-        "passport-jwt": "^4.0.0",
-        "serve-favicon": "^2.4.5",
-        "validator": "^9.4.1"
+        "bcrypt": "latest",
+        "bcrypt-promise": "latest",
+        "body-parser": "latest",
+        "cookie-parser": "latest",
+        "debug": "latest",
+        "dotenv": "latest",
+        "express": "latest",
+        "mongoose": "latest",
+        "mongoose-validator": "latest",
+        "morgan": "latest",
+        "parse-error": "latest",
+        "passport": "latest",
+        "passport-jwt": "latest",
+        "pug": "latest",
+        "serve-favicon": "latest",
+        "validator": "latest"
     }
 }
